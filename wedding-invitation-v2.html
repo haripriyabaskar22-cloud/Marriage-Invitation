@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anusha & Harish — Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --deep-red: #3D0000;
+  --dark-red: #5a0000;
+  --vermilion: #C0392B;
+  --gold: #C9942A;
+  --gold-light: #E5B84A;
+  --gold-pale: #F0D080;
+  --ivory: #FDF6E3;
+  --cream: #FAF0DC;
+  --maroon: #6B0F0F;
+  --terracotta: #A0522D;
+  --night-sky: #0A0208;
+  --whatsapp: linear-gradient(135deg, #E5B84A, #F0D080);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--deep-red);
+  color: var(--ivory);
+  font-family: 'Lora', serif;
+  overflow-x: hidden;
+}
+
+/* ── SCROLL PROGRESS ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--vermilion), var(--gold), var(--gold-light));
+  z-index: 9999; transition: width 0.1s linear;
+}
+
+/* ── CURTAIN INTRO ── */
+#curtain-wrap {
+  position: fixed; inset: 0; z-index: 10000;
+  pointer-events: all; display: flex;
+}
+#curtain-left, #curtain-right {
+  width: 50%; height: 100%;
+  background: radial-gradient(ellipse at 80% 50%, #7a0a0a, #3D0000 50%, #1a0000);
+  transition: transform 0.05s ease-out;
+  position: relative; overflow: hidden;
+}
+#curtain-right { background: radial-gradient(ellipse at 20% 50%, #7a0a0a, #3D0000 50%, #1a0000); }
+.curtain-fold {
+  position: absolute; top: 0; height: 100%; width: 18px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.35), transparent, rgba(0,0,0,0.15));
+}
+#curtain-left .curtain-fold { right: 0; }
+#curtain-right .curtain-fold { left: 0; }
+.curtain-drape {
+  position: absolute; top: 0; height: 100%; width: 100%;
+  background: repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0px, transparent 6px,
+    transparent 12px, rgba(0,0,0,0.05) 18px, transparent 24px, rgba(0,0,0,0.08) 30px);
+}
+.curtain-border {
+  position: absolute; top: 0; bottom: 0; width: 14px;
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-light) 30%, var(--gold) 60%, var(--gold-pale) 80%, var(--gold) 100%);
+}
+#curtain-left .curtain-border { right: 0; }
+#curtain-right .curtain-border { left: 0; }
+.curtain-tassel {
+  position: absolute; bottom: 0; display: flex; flex-direction: column; align-items: center; gap: 0;
+}
+#curtain-left .curtain-tassel { right: 6px; }
+#curtain-right .curtain-tassel { left: 6px; }
+.tassel-body { width: 6px; height: 60px; background: linear-gradient(180deg, var(--gold), var(--gold-pale)); border-radius: 3px; }
+.tassel-end { width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, var(--gold-pale), var(--gold)); margin-top: -2px; }
+#curtain-center-logo {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  pointer-events: none; z-index: 10001; text-align: center;
+}
+.curtain-om { font-size: 72px; color: var(--gold); line-height: 1; animation: pulse-gold 2s ease-in-out infinite; text-shadow: 0 0 30px rgba(201,148,42,0.6); margin-bottom: 20px;}
+.curtain-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(18px, 3vw, 28px); color: var(--gold-light); letter-spacing: 4px; }
+.curtain-sub { font-family: 'Noto Serif Tamil', serif; font-size: 16px; color: var(--gold-pale); opacity: 0.85; letter-spacing: 2px; }
+.curtain-hint { margin-top: 24px; font-family: 'Cinzel', serif; font-size: 16px; font-weight:bold; color: #FFD700; background: rgba(0,0,0,0.5); padding: 12px 24px; border: 1px solid #FFD700; border-radius: 30px; letter-spacing: 3px; animation: blink-strong 1.2s ease-in-out infinite; cursor:pointer;}
+@keyframes blink-strong { 0%,100%{opacity:.7; box-shadow: 0 0 10px rgba(255,215,0,0.2);} 50%{opacity:1; box-shadow: 0 0 25px rgba(255,215,0,0.7);} }
+@keyframes pulse-gold { 0%,100%{text-shadow:0 0 20px rgba(201,148,42,.4)} 50%{text-shadow:0 0 50px rgba(201,148,42,.9),0 0 80px rgba(201,148,42,.5)} }
+#curtain-wrap.open #curtain-left  { transform: translateX(-100%); }
+#curtain-wrap.open #curtain-right { transform: translateX(100%); }
+#curtain-wrap.done { display: none; }
+
+/* ── HERO ── */
+#hero {
+  position: relative; width: 100%; min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  overflow: hidden; background: url('background-couple.jpeg') center/cover no-repeat;
+}
+#stars-canvas { position: absolute; inset: 0; z-index: 0; }
+#hero-bg-gradient {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(10,2,8,0.3) 0%, rgba(61,0,0,0.6) 60%, var(--deep-red) 100%);
+}
+#temple-svg-wrap {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: min(700px, 95vw); z-index: 2;
+}
+#hero-content {
+  position: relative; z-index: 10;
+  text-align: center; padding: 0 20px;
+  transform: translateY(0); transition: transform 0.1s linear;
+}
+.hero-blessing { font-family: 'Noto Serif Tamil', serif; font-size: clamp(13px, 1.8vw, 17px); color: var(--gold-pale); letter-spacing: 3px; margin-bottom: 28px; text-shadow: 0 0 20px rgba(201,148,42,0.5); opacity: 0; animation: fadeDown 1.2s 0.3s ease forwards; }
+.hero-names { font-family: 'Cinzel Decorative', serif; font-size: clamp(36px, 7vw, 88px); font-weight: 900; line-height: 1.1; background: linear-gradient(135deg, var(--gold-pale) 0%, var(--gold-light) 30%, var(--gold) 60%, var(--gold-pale) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 4px 20px rgba(201,148,42,0.4)); opacity: 0; animation: fadeUp 1.4s 0.5s ease forwards; }
+.hero-amp { font-family: 'Philosopher', serif; font-style: italic; font-size: 0.6em; display: block; color: var(--vermilion); -webkit-text-fill-color: var(--vermilion); margin: 4px 0; }
+.hero-date { font-family: 'Cinzel', serif; font-size: clamp(14px, 2vw, 20px); letter-spacing: 6px; color: var(--ivory); margin-top: 20px; opacity: 0; animation: fadeUp 1.4s 0.7s ease forwards; }
+.hero-location { font-family: 'Lora', serif; font-style: italic; font-size: clamp(13px, 1.5vw, 16px); color: rgba(253,246,227,0.65); letter-spacing: 2px; margin-top: 8px; opacity: 0; animation: fadeUp 1.4s 0.9s ease forwards; }
+.hero-scroll-hint { margin-top: 50px; font-family: 'Cinzel', serif; font-size: 12px; font-weight:bold; letter-spacing: 4px; color: var(--gold-pale); background: rgba(61,0,0,0.6); border: 1px solid var(--gold); border-radius: 30px; padding: 14px 28px; display: inline-flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; opacity: 0; animation: fadeUp 1.4s 1.1s ease forwards; box-shadow: 0 4px 15px rgba(0,0,0,0.5); backdrop-filter:blur(5px); }
+.hero-scroll-hint:hover { background: rgba(201,148,42,0.2); }
+.bounce-arrow { display: block; animation: floatBounce 1.5s ease-in-out infinite; width:20px; height:20px; }
+@keyframes floatBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+@keyframes fadeDown { to{opacity:1;transform:translateY(0)} from{opacity:0;transform:translateY(-20px)} }
+@keyframes fadeUp { to{opacity:1;transform:translateY(0)} from{opacity:0;transform:translateY(30px)} }
+
+/* ── STATIC HERO LIGHTS (only on hero section) ── */
+.hero-light {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 3;
+}
+.hero-light-1 {
+  width: 300px; height: 300px;
+  top: -80px; left: 10%;
+  background: radial-gradient(circle, rgba(201,148,42,0.12) 0%, transparent 70%);
+}
+.hero-light-2 {
+  width: 400px; height: 400px;
+  top: 20%; left: 50%; transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(192,57,43,0.08) 0%, transparent 70%);
+}
+.hero-light-3 {
+  width: 300px; height: 300px;
+  top: -80px; right: 10%;
+  background: radial-gradient(circle, rgba(201,148,42,0.12) 0%, transparent 70%);
+}
+
+/* Walking couple removed */
+
+/* ── SECTION BASE ── */
+section { padding: 80px 20px; position: relative; overflow: hidden; }
+
+/* ── KOLAM DIVIDER ── */
+.kolam-divider { display: flex; align-items: center; justify-content: center; padding: 30px 20px; gap: 20px; overflow: hidden; }
+.kolam-divider svg { flex-shrink: 0; }
+.kolam-line { flex: 1; height: 1px; max-width: 200px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+/* ── REVEAL ANIMATION ── */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ── SECTION HEADERS ── */
+.section-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 6px; color: var(--vermilion); text-transform: uppercase; margin-bottom: 12px; display: block; }
+.section-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(28px, 5vw, 52px); font-weight: 700; color: var(--gold-light); line-height: 1.2; margin-bottom: 16px; }
+.section-verse { font-family: 'Philosopher', serif; font-style: italic; font-size: clamp(16px, 2vw, 20px); color: rgba(253,246,227,0.7); line-height: 1.8; max-width: 600px; margin: 0 auto; }
+.gold-rule { width: 80px; height: 2px; margin: 20px auto; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+/* ── BLESSING ── */
+#blessing { background: linear-gradient(180deg, var(--deep-red) 0%, #2a0000 50%, var(--deep-red) 100%); text-align: center; }
+.blessing-verse { font-family: 'Noto Serif Tamil', serif; font-size: clamp(18px, 3vw, 26px); color: var(--gold-light); line-height: 2; margin-bottom: 30px; }
+.blessing-sanskrit { font-family: 'Philosopher', serif; font-style: italic; font-size: clamp(14px, 2vw, 18px); color: rgba(253,246,227,0.6); margin-bottom: 50px; line-height: 1.9; }
+.family-tree { display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px 40px; max-width: 800px; margin: 40px auto; align-items: start; text-align: center; }
+.family-side h4 { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 4px; color: var(--vermilion); margin-bottom: 16px; }
+.family-name { font-family: 'Lora', serif; font-size: clamp(14px, 1.8vw, 17px); color: var(--ivory); line-height: 2; }
+.family-divider { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding-top: 30px; }
+.family-divider-line { width: 1px; height: 80px; background: linear-gradient(180deg, transparent, var(--gold), transparent); }
+.big-couple-names { font-family: 'Cinzel Decorative', serif; font-size: clamp(26px, 5vw, 56px); font-weight: 900; color: var(--gold-light); text-align: center; margin: 50px 0 10px; line-height: 1.2; }
+.big-amp { font-family: 'Philosopher', serif; font-style: italic; font-size: 0.5em; color: var(--vermilion); display: block; }
+
+/* ── EVENTS ── */
+#events { background: var(--deep-red); }
+.events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1000px; margin: 50px auto 0; }
+.event-card { background: linear-gradient(135deg, rgba(90,0,0,0.6), rgba(26,0,0,0.8)); border: 1px solid rgba(201,148,42,0.25); padding: 32px 28px; clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px)); position: relative; transition: transform 0.3s, box-shadow 0.3s; }
+.event-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(201,148,42,0.05), transparent); clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px)); }
+.event-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.event-icon { font-size: 32px; margin-bottom: 14px; }
+.event-name { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 700; color: var(--gold-light); margin-bottom: 6px; letter-spacing: 1px; }
+.event-tamil { font-family: 'Noto Serif Tamil', serif; font-size: 14px; color: rgba(253,246,227,0.55); margin-bottom: 16px; }
+.event-meta { font-family: 'Lora', serif; font-size: 13px; color: rgba(253,246,227,0.7); line-height: 1.8; }
+.event-meta strong { color: var(--gold); font-weight: 600; }
+.event-corner { position: absolute; top: 0; right: 0; width: 24px; height: 24px; background: linear-gradient(135deg, transparent 50%, rgba(201,148,42,0.3) 50%); }
+
+/* ── COUPLE (PHOTO SECTION) ── */
+#couple { background: linear-gradient(180deg, #2a0000 0%, var(--deep-red) 100%); }
+.couple-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; max-width: 900px; margin: 50px auto 0; align-items: center; }
+.couple-profile { text-align: center; }
+.photo-frame {
+  width: 200px; height: 200px; margin: 0 auto 24px;
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.photo-frame-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* DUMMY PHOTO STYLES */
+.dummy-photo {
+  width: 160px; height: 160px; border-radius: 50%;
+  position: relative; z-index: 1; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.dummy-photo-groom {
+  background: linear-gradient(145deg, #3a0a0a 0%, #6B1A1A 40%, #2a0000 100%);
+}
+.dummy-photo-bride {
+  background: linear-gradient(145deg, #4a0a0a 0%, #8B1A1A 40%, #3a0000 100%);
+}
+.dummy-photo svg { width: 100%; height: 100%; }
+.profile-name { font-family: 'Cinzel Decorative', serif; font-size: clamp(20px, 3vw, 28px); color: var(--gold-light); margin-bottom: 8px; }
+.profile-detail { font-family: 'Lora', serif; font-size: 14px; color: rgba(253,246,227,0.65); line-height: 1.7; margin-bottom: 14px; }
+.profile-quote { font-family: 'Philosopher', serif; font-style: italic; font-size: 15px; color: var(--gold-pale); opacity: 0.8; border-left: 2px solid var(--vermilion); padding-left: 14px; text-align: left; }
+.couple-center-ornament { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.center-amp { font-family: 'Cinzel Decorative', serif; font-size: 42px; color: var(--vermilion); }
+
+/* ── RSVP / WHATSAPP ── */
+#rsvp { background: linear-gradient(135deg, #4a0a0a, #2d0000); text-align: center; padding: 100px 20px; }
+.rsvp-card { max-width: 500px; margin: 0 auto; border: 1px solid rgba(201,148,42,0.3); padding: 60px 40px; clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px); background: rgba(26,0,0,0.5); }
+.whatsapp-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--whatsapp);
+  color: var(--deep-red);
+  font-weight: 700;
+  font-family: 'Cinzel', serif; font-size: 16px; letter-spacing: 2px;
+  text-decoration: none; padding: 16px 36px; border-radius: 0;
+  margin-top: 30px; transition: transform 0.3s, box-shadow 0.3s;
+  border: none;
+  border-radius: 30px;
+}
+.whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(192,57,43,0.4); }
+
+/* ── MAP SECTION ── */
+#location-map {
+  background: linear-gradient(180deg, #2a0000, var(--deep-red));
+  text-align: center;
+}
+.map-wrapper {
+  max-width: 800px; margin: 40px auto 0;
+  border: 1px solid rgba(201,148,42,0.3);
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+  overflow: hidden; position: relative;
+}
+.map-wrapper iframe {
+  width: 100%; height: 400px; border: 0; display: block;
+  filter: sepia(0.4) saturate(0.8) hue-rotate(330deg);
+}
+.map-overlay-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 40px;
+  background: linear-gradient(180deg, rgba(61,0,0,0.8), transparent);
+  pointer-events: none; z-index: 1;
+}
+.map-overlay-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
+  background: linear-gradient(0deg, rgba(61,0,0,0.8), transparent);
+  pointer-events: none; z-index: 1;
+}
+.map-address {
+  font-family: 'Lora', serif; font-style: italic; font-size: 15px;
+  color: rgba(253,246,227,0.7); margin-top: 20px; line-height: 1.8;
+}
+.map-address strong { color: var(--gold); font-weight: 600; }
+.directions-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 16px;
+  background: transparent; border: 1px solid rgba(201,148,42,0.4);
+  color: var(--gold-pale); font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 2px;
+  padding: 10px 24px; text-decoration: none;
+  transition: background 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+.directions-btn:hover { background: rgba(201,148,42,0.1); box-shadow: 0 4px 20px rgba(201,148,42,0.2); }
+
+/* ── DETAILS ── */
+#details { background: linear-gradient(135deg, #2d0000, var(--deep-red)); }
+.details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 900px; margin: 50px auto 0; }
+.detail-card { background: rgba(26,0,0,0.5); border: 1px solid rgba(201,148,42,0.15); padding: 28px 24px; transition: transform 0.3s, border-color 0.3s; }
+.detail-card:hover { transform: translateY(-4px); border-color: rgba(201,148,42,0.35); }
+.detail-icon { font-size: 24px; margin-bottom: 12px; }
+.detail-label { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 3px; color: var(--vermilion); margin-bottom: 8px; }
+.detail-value { font-family: 'Lora', serif; font-size: 14px; color: rgba(253,246,227,0.75); line-height: 1.8; }
+.detail-hashtag { font-family: 'Cinzel', serif; color: var(--gold); font-size: 16px; }
+
+/* ── COUNTDOWN & SCRATCH CARD ── */
+@keyframes swipe { 0%,100%{transform:translateX(20px) translateY(10px) rotate(0);} 50%{transform:translateX(-20px) translateY(-10px) rotate(-15deg);} }
+#countdown { position: relative; background: url('countdown.png') center/cover no-repeat; text-align: center; overflow: hidden; padding: 100px 20px; }
+#countdown::before { content: ''; position: absolute; inset: 0; background: rgba(10,2,8,0.65); z-index: 0; }
+#countdown-stars { display: none; }
+.countdown-inner { position: relative; z-index: 1; }
+.countdown-grid { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 40px auto; flex-wrap: wrap; }
+.countdown-unit { text-align: center; }
+.countdown-num { font-family: 'Cinzel Decorative', serif; font-size: clamp(48px, 8vw, 96px); color: var(--gold-light); line-height: 1; display: block; filter: drop-shadow(0 0 20px rgba(201,148,42,0.4)); }
+.countdown-label { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px; color: var(--vermilion); margin-top: 8px; }
+.countdown-dot { font-size: 40px; color: var(--gold); opacity: 0.4; align-self: flex-start; margin-top: 10px; }
+
+/* ── WISH / BLESSING FORM ── */
+#wish-section {
+  background: linear-gradient(180deg, #1a0000, #2a0000);
+  text-align: center; padding: 80px 20px;
+}
+.wish-container { max-width: 600px; margin: 40px auto 0; }
+.wish-form-wrap {
+  background: rgba(26,0,0,0.6);
+  border: 1px solid rgba(201,148,42,0.3);
+  padding: 40px;
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+}
+.wish-input-group { margin-bottom: 20px; text-align: left; }
+.wish-label { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 3px; color: var(--vermilion); display: block; margin-bottom: 8px; }
+.wish-input, .wish-textarea {
+  width: 100%;
+  background: rgba(61,0,0,0.6);
+  border: 1px solid rgba(201,148,42,0.2);
+  color: var(--ivory);
+  font-family: 'Lora', serif; font-size: 14px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.wish-input:focus, .wish-textarea:focus { border-color: rgba(201,148,42,0.5); }
+.wish-textarea { min-height: 100px; resize: vertical; }
+.wish-submit-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, var(--dark-red), var(--maroon));
+  color: var(--gold-pale);
+  font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 3px;
+  border: 1px solid rgba(201,148,42,0.4);
+  padding: 14px 36px; cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  margin-top: 10px;
+}
+.wish-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,148,42,0.25); }
+.wish-success { display: none; padding: 20px; color: var(--gold-pale); font-family: 'Philosopher', serif; font-style: italic; font-size: 18px; }
+.wish-wall { max-width: 600px; margin: 40px auto 0; }
+.wish-wall-title { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 4px; color: var(--vermilion); margin-bottom: 20px; }
+.wish-card {
+  background: rgba(26,0,0,0.5); border: 1px solid rgba(201,148,42,0.15);
+  padding: 20px 24px; margin-bottom: 16px; text-align: left;
+  animation: fadeUp 0.6s ease forwards;
+  position: relative;
+}
+.wish-card::before {
+  content: '"'; position: absolute; top: 10px; left: 12px;
+  font-family: 'Philosopher', serif; font-size: 40px; color: rgba(201,148,42,0.15); line-height: 1;
+}
+.wish-card-name { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 2px; color: var(--gold); margin-bottom: 8px; }
+.wish-card-msg { font-family: 'Lora', serif; font-style: italic; font-size: 14px; color: rgba(253,246,227,0.75); line-height: 1.7; padding-left: 10px; }
+.wish-card-time { font-size: 11px; color: rgba(253,246,227,0.3); margin-top: 8px; font-family: 'Cinzel', serif; letter-spacing: 1px; }
+
+/* ── MUSIC BTN ── */
+#music-btn {
+  position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(61,0,0,0.85); border: 1.5px solid var(--gold);
+  color: var(--gold); font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  backdrop-filter: blur(8px); box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+#music-btn:hover { transform: scale(1.1); background: rgba(90,0,0,0.9); border-color: var(--gold-light); }
+.music-note { animation: spin 4s linear infinite; display: flex; align-items: center; justify-content: center; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── DEEPAM (only hero section - done via JS) ── */
+@keyframes sway {
+  0%,100% { transform: rotate(-6deg) translateY(0); }
+  50% { transform: rotate(6deg) translateY(4px); }
+}
+
+/* ── FOOTER ── */
+footer { background: var(--night-sky); padding: 60px 20px; text-align: center; }
+.footer-names { font-family: 'Cinzel Decorative', serif; font-size: clamp(22px, 4vw, 36px); color: var(--gold-light); margin-bottom: 12px; }
+.footer-date { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 5px; color: rgba(253,246,227,0.5); margin-bottom: 24px; }
+.footer-social { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 20px; }
+.footer-social a { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 3px; color: var(--gold); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
+.footer-social a:hover { opacity: 1; }
+.footer-copy { font-family: 'Lora', serif; font-size: 13px; color: rgba(253,246,227,0.3); }
+
+/* Mobile */
+@media (max-width: 640px) {
+  .family-tree, .couple-grid { grid-template-columns: 1fr; gap: 24px; }
+  .family-divider { flex-direction: row; padding-top: 0; }
+  .family-divider-line { width: 60px; height: 1px; }
+  .couple-center-ornament { flex-direction: row; }
+  .wish-form-wrap { padding: 24px 20px; }
+}
+
+/* ── GAME STYLES ── */
+.memory-card.flipped {
+  transform: rotateY(180deg);
+  background: var(--ivory) !important;
+}
+.memory-card span {
+  display: none;
+  transform: rotateY(180deg);
+}
+.memory-card.flipped span {
+  display: block !important;
+}
+.game-section {
+  padding: 100px 20px;
+  border-top: 1px solid rgba(201,148,42,0.1);
+}
+.win-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  border-radius: 15px;
+  animation: fadeUp 0.5s ease;
+}
+.win-overlay h4 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 24px; margin-bottom: 10px; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.inv-page {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  background-color: #fdf6e3;
+  border: 1px solid rgba(201,148,42,0.3);
+  backface-visibility: hidden;
+}
+#invitation-container.open #page-1 { transform: rotateY(-160deg); }
+#invitation-container.open #page-2 { transform: rotateY(-150deg); transition-delay: 0.1s; }
+#invitation-container.open #page-3 { transform: rotateY(-140deg); transition-delay: 0.2s; }
+#invitation-container.open #page-4 { transform: rotateY(-130deg); transition-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- BG MUSIC -->
+<audio id="bg-music" src="bg-music.mp3" loop></audio>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- CURTAIN INTRO (faster) -->
+<div id="curtain-wrap">
+  <div id="curtain-left">
+    <div class="curtain-drape"></div>
+    <div class="curtain-border"></div>
+    <div class="curtain-fold"></div>
+    <div class="curtain-tassel"><div class="tassel-body"></div><div class="tassel-end"></div></div>
+  </div>
+  <div id="curtain-right">
+    <div class="curtain-drape"></div>
+    <div class="curtain-border"></div>
+    <div class="curtain-fold"></div>
+    <div class="curtain-tassel"><div class="tassel-body"></div><div class="tassel-end"></div></div>
+  </div>
+  <div id="curtain-center-logo">
+    <div class="curtain-om">✧</div>
+    <div class="curtain-title">A Sacred Invitation</div>
+    <div class="curtain-sub">திருமண அழைப்பிதழ்</div>
+    <div class="curtain-hint">✦ click to open ✦</div>
+  </div>
+</div>
+
+<!-- MUSIC BTN -->
+<button id="music-btn" onclick="toggleMusic()" title="Play Music">
+  <span class="music-note" id="music-icon">🔇</span>
+</button>
+
+<!-- WALKING COUPLE REMOVED -->
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" style="position: relative; background: #1a0000; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+  <!-- Full Temple Background -->
+  <div style="position: absolute; inset: 0; z-index: 0;">
+    <img src="temple.png" style="width: 100%; height: 100%; object-fit: contain; object-position: bottom; opacity: 0.8;" alt="Temple Backdrop">
+  </div>
+  
+  <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26,0,0,0.8) 0%, transparent 50%, rgba(26,0,0,0.9) 100%); z-index: 1;"></div>
+  <canvas id="stars-canvas" style="position: absolute; inset: 0; z-index: 2;"></canvas>
+
+  <!-- HERO CONTENT -->
+  <div id="hero-content" style="position: relative; z-index: 5; text-align: center; padding-bottom: 10vh;">
+    <div class="hero-blessing">🌺 திருமண வாழ்த்துக்கள் 🌺</div>
+    <div class="hero-names">
+      Anusha
+      <span class="hero-amp">&</span>
+      Harish
+    </div>
+    <div class="hero-date">MAY 18, 2026</div>
+    <div class="hero-location">MRJ Thirumana Mahal · Somarasampettai, Trichy</div>
+    <a href="#virtual-invitation" class="hero-scroll-hint">
+      <span>SCROLL DOWN</span>
+      <svg class="bounce-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- KOLAM DIVIDER 1 -->
+<div class="kolam-divider">
+  <div class="kolam-line"></div>
+  <svg width="120" height="60" viewBox="0 0 120 60">
+    <g fill="none" stroke="#C9942A" stroke-width="0.8" opacity="0.7">
+      <circle cx="60" cy="30" r="20"/><circle cx="60" cy="30" r="12"/><circle cx="60" cy="30" r="4"/>
+      <circle cx="30" cy="30" r="8"/><circle cx="90" cy="30" r="8"/>
+      <circle cx="60" cy="10" r="6"/><circle cx="60" cy="50" r="6"/>
+      <line x1="40" y1="30" x2="20" y2="30"/><line x1="80" y1="30" x2="100" y2="30"/>
+      <line x1="60" y1="16" x2="60" y2="6"/><line x1="60" y1="44" x2="60" y2="54"/>
+      <path d="M44 16 L30 10"/><path d="M76 16 L90 10"/><path d="M44 44 L30 50"/><path d="M76 44 L90 50"/>
+      <circle cx="30" cy="10" r="3" fill="#C9942A"/><circle cx="90" cy="10" r="3" fill="#C9942A"/>
+      <circle cx="30" cy="50" r="3" fill="#C9942A"/><circle cx="90" cy="50" r="3" fill="#C9942A"/>
+    </g>
+  </svg>
+  <div class="kolam-line"></div>
+</div>
+
+<!-- ═══ VIRTUAL INVITATION ═══ -->
+<section id="virtual-invitation" style="background: linear-gradient(rgba(26,0,0,0.85), rgba(26,0,0,0.85)), url('background-couple.jpeg') center/cover fixed; padding: 100px 20px; position: relative; overflow: hidden;">
+  <div class="reveal" style="text-align:center; position: relative; z-index: 2; margin-bottom: 50px;">
+    <span class="section-label">A Sacred Invitation</span>
+    <h2 class="section-title">Open Our Hearts</h2>
+    <div class="gold-rule"></div>
+    <p style="color: var(--gold-pale); font-family: 'Lora', serif; font-style: italic;">Click the card to reveal our story</p>
+  </div>
+
+  <!-- Updated to Landscape (Wide) for better text visibility -->
+  <div id="invitation-3d" style="width: min(650px, 95vw); aspect-ratio: 3 / 2; margin: 40px auto; position: relative; perspective: 1500px; cursor: pointer;" onclick="flipAndSlide()">
+    
+    <!-- Each page is a flip-card -->
+    <div id="card-4" class="flip-card" style="z-index: 1;">
+      <div class="flip-inner">
+        <div class="flip-front"><img src="inv-4.png" style="width: 100%; height: 100%; object-fit: fill; border-radius: 8px;"></div>
+        <div class="flip-back" style="background: #2a0000; color:var(--gold); display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; border-radius: 8px;">Blessings</div>
+      </div>
+    </div>
+    
+    <div id="card-3" class="flip-card" style="z-index: 2;">
+      <div class="flip-inner">
+        <div class="flip-front"><img src="inv-3.png" style="width: 100%; height: 100%; object-fit: fill; border-radius: 8px;"></div>
+        <div class="flip-back" style="background: #2a0000; color:var(--gold); display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; border-radius: 8px;">Our Families</div>
+      </div>
+    </div>
+
+    <div id="card-2" class="flip-card" style="z-index: 3;">
+      <div class="flip-inner">
+        <div class="flip-front"><img src="inv-2.png" style="width: 100%; height: 100%; object-fit: fill; border-radius: 8px;"></div>
+        <div class="flip-back" style="background: #2a0000; color:var(--gold); display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; border-radius: 8px;">Wedding Details</div>
+      </div>
+    </div>
+
+    <div id="card-1" class="flip-card" style="z-index: 4;">
+      <div class="flip-inner">
+        <div class="flip-front" style="position:relative;">
+          <img src="inv-1.png" style="width: 100%; height: 100%; object-fit: fill; border-radius: 8px;">
+          <div style="position:absolute; inset:0; background:rgba(0,0,0,0.02); display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none;">
+             <div class="flip-hint" style="position:absolute; bottom:20px; color:var(--deep-red); font-weight:bold; font-size:14px; font-family:'Cinzel',serif; animation: pulse 2s infinite; background: rgba(255,255,255,0.7); padding: 5px 10px; border-radius: 20px;">TAP TO FLIP ➔</div>
+          </div>
+        </div>
+        <div class="flip-back" style="background: #2a0000; color:var(--gold); display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; border-radius: 8px;">Welcome</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.flip-card {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s;
+  transform-style: preserve-3d;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.flip-card.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-front, .flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid rgba(201,148,42,0.3);
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+.flip-card.slid-back {
+  transform: translate(110%, -10%) rotate(15deg) scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: transform 0.8s, opacity 0.5s, visibility 0s 0.8s;
+}
+</style>
+
+<!-- Heart Clip Path Definition -->
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <clipPath id="heart-mask-path" clipPathUnits="objectBoundingBox">
+      <path d="M0.5,0.88 C0.5,0.88 0.1,0.6 0.1,0.35 C0.1,0.15 0.25,0.05 0.45,0.05 C0.55,0.05 0.6,0.1 0.65,0.15 C0.7,0.1 0.75,0.05 0.85,0.05 C1.05,0.05 1.2,0.15 1.2,0.35 C1.2,0.6 0.8,0.88 0.8,0.88 L0.5,0.88" transform="scale(0.8) translate(-0.1, 0)" />
+    </clipPath>
+  </defs>
+</svg>
+
+
+
+<style>
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+</style>
+
+<style>
+.inv-placeholder {
+  font-family: 'Cinzel', serif;
+  color: rgba(0,0,0,0.1);
+  text-align: center;
+  font-size: 16px;
+  pointer-events: none;
+  z-index: 0;
+}
+.inv-page.flipped {
+  transform: rotateY(-145deg);
+  box-shadow: 15px 5px 25px rgba(0,0,0,0.4);
+}
+.scratch-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.scratch-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+</style>
+
+<!-- ═══ SAVE THE DATE SCRATCH CARD ═══ -->
+<section id="save-the-date" style="position:relative; background:url('background-couple.jpeg') center/cover fixed; text-align:center;">
+  <div style="position:absolute; inset:0; background:rgba(61,0,0,0.88); z-index:0;"></div>
+  
+  <div class="reveal" style="position:relative; z-index:1;">
+    <span class="section-label">Save the Date</span>
+    <h2 class="section-title">Scratch to Reveal</h2>
+    <div class="gold-rule"></div>
+    <p style="font-family:'Lora',serif; color:rgba(253,246,227,0.7); font-size:14px; margin-bottom: 24px;">Gently scratch the golden heart to reveal our special date!</p>
+  </div>
+  
+  <div class="scratch-card-wrapper reveal" style="position:relative; width: 300px; height: 300px; margin: 0 auto; user-select:none; border-radius:16px; z-index:1; box-shadow: 0 10px 40px rgba(0,0,0,0.8);">
+    <!-- Base text/image -->
+    <div class="scratch-base" style="position:absolute; inset:0; background:#FFF5E6; border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; border: 2px solid #E5B84A; padding: 20px;">
+      <div id="scratch-reveal-text" class="scratch-hidden" style="text-align: center;">
+        <div style="font-family:'Cinzel Decorative',serif; font-size: 28px; font-weight:700; color:#8B0000; margin-bottom:10px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">MAY 18, 2026</div>
+        <div style="font-family:'Lora',serif; font-size: 16px; color:#A52A2A; font-style:italic; font-weight: 600; letter-spacing: 1px;">Trichy, Tamil Nadu</div>
+      </div>
+    </div>
+    <!-- Canvas cover -->
+    <canvas id="scratch-canvas" style="position:absolute; inset:0; border-radius:16px; cursor: url(&quot;data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><text y='20' font-size='20'>❤️</text></svg>&quot;) 12 12, auto; z-index:5;"></canvas>
+    <!-- Scratch hint over canvas -->
+    <div id="scratch-hint" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none; z-index:10; background:rgba(0,0,0,0.4); border-radius:16px; transition:opacity 0.3s; padding-top:40px;">
+      <div style="font-size:50px; animation: swipe 2s ease-in-out infinite; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.5));">👆</div>
+      <div style="font-family:'Cinzel',serif; color:#FFF; font-weight:bold; letter-spacing:2px; font-size:16px; margin-top:30px; text-shadow:0 2px 4px rgba(0,0,0,0.8); animation:pulse-gold 2s infinite;">SCRATCH ME</div>
+    </div>
+  </div>
+</section>
+
+<!-- KOLAM DIVIDER 2 -->
+<div class="kolam-divider" style="background:linear-gradient(90deg,#2a0000,#3D0000,#2a0000)">
+  <div class="kolam-line"></div>
+  <svg width="100" height="50" viewBox="0 0 100 50">
+    <g stroke="#C9942A" stroke-width="0.8" fill="none" opacity="0.7">
+      <polygon points="50,5 62,20 75,20 65,30 68,45 50,37 32,45 35,30 25,20 38,20" fill="rgba(201,148,42,0.08)"/>
+      <circle cx="50" cy="25" r="8" fill="rgba(201,148,42,0.15)"/>
+    </g>
+  </svg>
+  <div class="kolam-line"></div>
+</div>
+
+<!-- ═══ EVENTS ═══ -->
+<section id="events">
+  <div class="reveal" style="text-align:center">
+    <span class="section-label">Join the Celebrations</span>
+    <h2 class="section-title">Sacred Ceremonies</h2>
+    <div class="gold-rule"></div>
+    <p class="section-verse">இரண்டு நாள் தெய்வீக விழா, அன்பு மற்றும் ஒற்றுமை</p>
+  </div>
+  <div class="events-grid">
+    <div class="event-card reveal">
+      <div class="event-corner"></div>
+      <div class="event-icon">💍</div>
+      <div class="event-name">Engagement</div>
+      <div class="event-tamil">நிச்சயதார்த்தம்</div>
+      <div class="event-meta">
+        <strong>Saturday, May 17, 2026 · 7:00 PM Onwards</strong><br>
+        MRJ திருமண மஹால்<br>
+        Madurai Kaliyamman Koil Street, Somarasampettai, Trichy<br>
+        <em style="font-size:12px;color:var(--gold-pale);opacity:0.8">மாலை 7:00 மணி முதல்</em>
+      </div>
+    </div>
+    <div class="event-card reveal" style="transition-delay:0.15s">
+      <div class="event-corner"></div>
+      <div class="event-icon">🌸</div>
+      <div class="event-name">Marriage</div>
+      <div class="event-tamil">திருமண விழா</div>
+      <div class="event-meta">
+        <strong>Monday, May 18, 2026 · 9:30 AM – 10:30 AM</strong><br>
+        MRJ திருமண மஹால்<br>
+        Madurai Kaliyamman Koil Street, Somarasampettai, Trichy<br>
+        <em style="font-size:12px;color:var(--gold-pale);opacity:0.8">முகூர்த்தம்: காலை 9:30 – 10:30</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KOLAM DIVIDER 3 -->
+<div class="kolam-divider" style="background:#2a0000">
+  <div class="kolam-line"></div>
+  <svg width="120" height="50" viewBox="0 0 120 50">
+    <g stroke="#C9942A" stroke-width="0.8" fill="none" opacity="0.65">
+      <ellipse cx="60" cy="25" rx="25" ry="18"/>
+      <ellipse cx="60" cy="25" rx="15" ry="10"/>
+      <ellipse cx="60" cy="25" rx="5" ry="3" fill="rgba(201,148,42,0.3)"/>
+      <circle cx="20" cy="25" r="6"/><circle cx="100" cy="25" r="6"/>
+    </g>
+  </svg>
+  <div class="kolam-line"></div>
+</div>
+
+<!-- ═══ COUPLE (DUMMY PHOTOS) ═══ -->
+<section id="couple">
+  <div class="reveal" style="text-align:center">
+    <span class="section-label">The Beloved</span>
+    <h2 class="section-title">Our Love Story</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="couple-grid">
+    <!-- GROOM WITH DUMMY PHOTO -->
+    <div class="couple-profile reveal-left">
+      <div class="photo-frame">
+        <svg class="photo-frame-svg" viewBox="0 0 200 200">
+          <defs><linearGradient id="frameGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#C9942A"/><stop offset="50%" stop-color="#F0D080"/><stop offset="100%" stop-color="#C9942A"/>
+          </linearGradient></defs>
+          <rect x="4" y="4" width="192" height="192" fill="none" stroke="url(#frameGrad)" stroke-width="1.5" rx="50%"/>
+          <rect x="10" y="10" width="180" height="180" fill="none" stroke="rgba(201,148,42,0.3)" stroke-width="0.5" rx="50%"/>
+          <path d="M10 10 Q30 5 35 25 Q15 30 10 10Z" fill="rgba(201,148,42,0.4)"/>
+          <path d="M190 10 Q170 5 165 25 Q185 30 190 10Z" fill="rgba(201,148,42,0.4)"/>
+          <path d="M10 190 Q30 195 35 175 Q15 170 10 190Z" fill="rgba(201,148,42,0.4)"/>
+          <path d="M190 190 Q170 195 165 175 Q185 170 190 190Z" fill="rgba(201,148,42,0.4)"/>
+          <circle cx="100" cy="6" r="3" fill="#C9942A" opacity="0.7"/>
+          <circle cx="100" cy="194" r="3" fill="#C9942A" opacity="0.7"/>
+          <circle cx="6" cy="100" r="3" fill="#C9942A" opacity="0.7"/>
+          <circle cx="194" cy="100" r="3" fill="#C9942A" opacity="0.7"/>
+        </svg>
+        <!-- GROOM REAL PHOTO -->
+        <div class="dummy-photo dummy-photo-groom" style="border-radius:50%; overflow:hidden;">
+          <img src="groom.png" alt="Arjun" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+      </div>
+      <div class="profile-name">M. Harish</div>
+      <div class="profile-detail">BE (Mech) & MBA (HR)<br>Delivery Lead, XPT Software, Bangalore</div>
+      <div class="profile-quote">"She is the temple where my prayers are answered, the star that guides my wandering soul home."</div>
+    </div>
+
+    <div class="couple-center-ornament">
+      <svg width="3" height="120" viewBox="0 0 3 120">
+        <defs><linearGradient id="goldGrad2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="transparent"/><stop offset="50%" stop-color="#C9942A"/><stop offset="100%" stop-color="transparent"/>
+        </linearGradient></defs>
+        <line x1="1.5" y1="0" x2="1.5" y2="120" stroke="url(#goldGrad2)" stroke-width="1"/>
+      </svg>
+      <div class="center-amp">&</div>
+      <svg width="3" height="120" viewBox="0 0 3 120">
+        <line x1="1.5" y1="0" x2="1.5" y2="120" stroke="url(#goldGrad2)" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- BRIDE WITH DUMMY PHOTO -->
+    <div class="couple-profile reveal-right">
+      <div class="photo-frame">
+        <svg class="photo-frame-svg" viewBox="0 0 200 200">
+          <rect x="4" y="4" width="192" height="192" fill="none" stroke="url(#frameGrad)" stroke-width="1.5" rx="50%"/>
+          <rect x="10" y="10" width="180" height="180" fill="none" stroke="rgba(201,148,42,0.3)" stroke-width="0.5" rx="50%"/>
+          <path d="M10 10 Q30 5 35 25 Q15 30 10 10Z" fill="rgba(201,148,42,0.4)"/>
+          <path d="M190 10 Q170 5 165 25 Q185 30 190 10Z" fill="rgba(201,148,42,0.4)"/>
+          <path d="M10 190 Q30 195 35 175 Q15 170 10 190Z" fill="rgba(201,148,42,0.4)"/>
+          <path d="M190 190 Q170 195 165 175 Q185 170 190 190Z" fill="rgba(201,148,42,0.4)"/>
+          <circle cx="100" cy="6" r="3" fill="#C9942A" opacity="0.7"/>
+          <circle cx="100" cy="194" r="3" fill="#C9942A" opacity="0.7"/>
+          <circle cx="6" cy="100" r="3" fill="#C9942A" opacity="0.7"/>
+          <circle cx="194" cy="100" r="3" fill="#C9942A" opacity="0.7"/>
+        </svg>
+        <!-- BRIDE REAL PHOTO -->
+        <div class="dummy-photo dummy-photo-bride" style="border-radius:50%; overflow:hidden;">
+          <img src="bride.png" alt="Kavya" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+      </div>
+      <div class="profile-name">Anu (a) T. Anusha</div>
+      <div class="profile-detail">BE (CSE) & MBA (HR)<br>Senior Talent Acquisition, Quest Global, Bangalore</div>
+      <div class="profile-quote">"He is the rhythm to my dance, the silence between the notes — my completeness."</div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ═══ GOOGLE MAP ═══ -->
+<section id="location-map">
+  <div class="reveal" style="text-align:center">
+    <span class="section-label">Find Us Here</span>
+    <h2 class="section-title">Wedding Venue</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="map-wrapper reveal" style="max-width:800px;margin:40px auto 0">
+    <a href="https://www.google.com/maps/search/MRJ+Thirumana+Mahal+Somarasampettai+Trichy" target="_blank" style="display:block; position:relative;">
+      <div class="map-overlay-top"></div>
+      <img src="map.png" alt="Map" style="width:100%; height:400px; object-fit:cover; display:block; filter: sepia(0.4) saturate(0.8) hue-rotate(330deg);" />
+      <div class="map-overlay-bottom"></div>
+    </a>
+  </div>
+  <div style="text-align:center;margin-top:20px">
+    <p class="map-address">
+      <strong>MRJ Thirumana Mahal</strong><br>
+      Madurai Kaliyamman Koil Street, Somarasampettai, Trichy<br>
+      Tamil Nadu, India
+    </p>
+    <a href="https://www.google.com/maps/search/MRJ+Thirumana+Mahal+Somarasampettai+Trichy" target="_blank" class="directions-btn">
+      📍 GET DIRECTIONS
+    </a>
+  </div>
+</section>
+
+
+
+<!-- ═══ COUNTDOWN ═══ -->
+<section id="countdown">
+  <canvas id="countdown-stars"></canvas>
+  <div class="countdown-inner">
+    <div class="reveal">
+      <span class="section-label">The Wait is Almost Over</span>
+      <h2 class="section-title">Counting Down</h2>
+      <div class="gold-rule"></div>
+    </div>
+    <div class="countdown-grid reveal">
+      <div class="countdown-unit"><span class="countdown-num" id="cd-days">00</span><div class="countdown-label">DAYS</div></div>
+      <div class="countdown-dot">·</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-hours">00</span><div class="countdown-label">HOURS</div></div>
+      <div class="countdown-dot">·</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-mins">00</span><div class="countdown-label">MINUTES</div></div>
+      <div class="countdown-dot">·</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-secs">00</span><div class="countdown-label">SECONDS</div></div>
+    </div>
+    <div class="reveal" style="font-family:'Noto Serif Tamil',serif;font-size:20px;color:var(--gold-pale);margin-top:10px;letter-spacing:3px;">
+      18 · 05 · 2026
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WEDDING GAMES ═══ -->
+<section id="wedding-games" style="background: linear-gradient(180deg, var(--deep-red), #1a0000); text-align: center;">
+  <div class="reveal">
+    <span class="section-label">Let's Have Some Fun</span>
+    <h2 class="section-title">Wedding Games</h2>
+    <div class="gold-rule"></div>
+  </div>
+
+<!-- ═══ WEDDING GAMES ═══ -->
+<section id="game-memory" class="game-section" style="background: var(--deep-red);">
+  <div class="reveal">
+    <span class="section-label">Game 1</span>
+    <h2 class="section-title">Couple Memory Match</h2>
+    <div class="gold-rule"></div>
+    <p style="color: var(--gold-pale); margin-bottom: 30px;">How to play: Tap two cards to find matching symbols. Clear all to see your score!</p>
+  </div>
+  <div style="max-width: 400px; margin: 0 auto; position: relative;">
+    <div id="memory-score-display" style="color: var(--gold); font-family: 'Cinzel', serif; margin-bottom: 15px; font-size: 18px;">Moves: 0</div>
+    <div id="memory-game" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; perspective: 1000px;"></div>
+    <div id="win-memory" class="win-overlay">
+      <h4>You Won! 🎉</h4>
+      <p id="memory-final-score" style="color:white; margin-bottom: 15px;"></p>
+      <button onclick="initMemoryGame()" style="background:var(--gold); border:none; padding:10px 20px; border-radius:20px; cursor:pointer;">Play Again</button>
+    </div>
+  </div>
+</section>
+
+<section id="game-trivia" class="game-section" style="background: #1a0000;">
+  <div class="reveal">
+    <span class="section-label">Game 2</span>
+    <h2 class="section-title">Wedding Trivia</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div style="max-width: 500px; margin: 0 auto; background: rgba(26,0,0,0.6); border: 1px solid var(--gold); padding: 40px; border-radius: 15px; text-align: left; position: relative;">
+    <p id="trivia-question" style="font-family:'Lora',serif; color: var(--ivory); font-size: 20px; min-height: 80px;"></p>
+    <div id="trivia-options" style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;"></div>
+    <div id="win-trivia" class="win-overlay">
+      <h4>Perfect Score! 🏆</h4>
+      <button onclick="currentTrivia=0; document.getElementById('win-trivia').style.display='none'; initTriviaGame();" style="background:var(--gold); border:none; padding:10px 20px; border-radius:20px; cursor:pointer;">Restart Quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WISH / BLESSINGS WALL ═══ -->
+<section id="wish-section">
+  <div class="reveal" style="text-align:center">
+    <span class="section-label">Send Your Love</span>
+    <h2 class="section-title">Blessings Wall</h2>
+    <div class="gold-rule"></div>
+    <p style="font-family:'Philosopher',serif;font-style:italic;font-size:16px;color:rgba(253,246,227,0.65);max-width:500px;margin:0 auto;line-height:1.8">
+      Leave your heartfelt wishes for Arjun & Kavya.<br>Your blessings will light their journey together.
+    </p>
+  </div>
+
+  <div class="wish-container">
+    <div class="wish-form-wrap reveal">
+      <div class="wish-input-group">
+        <label class="wish-label" for="wish-name">YOUR NAME</label>
+        <input type="text" id="wish-name" class="wish-input" placeholder="Enter your name..." maxlength="50"/>
+      </div>
+      <div class="wish-input-group">
+        <label class="wish-label" for="wish-msg">YOUR BLESSING</label>
+        <textarea id="wish-msg" class="wish-textarea" placeholder="Write your heartfelt wish..." maxlength="300"></textarea>
+      </div>
+      <div style="text-align:center">
+        <button class="wish-submit-btn" onclick="submitWish()">
+          🌺 SEND BLESSINGS
+        </button>
+      </div>
+      <div class="wish-success" id="wish-success">
+        🙏 Your blessings have been received! வாழ்க வளமுடன்!
+      </div>
+    </div>
+
+    <!-- Wishes display wall -->
+    <div class="wish-wall" id="wish-wall">
+      <div class="wish-wall-title">✦ BLESSINGS RECEIVED ✦</div>
+      <div id="wish-list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div style="font-size:30px;margin-bottom:16px;">🌺</div>
+  <div class="footer-names">Anusha & Harish</div>
+  <div class="footer-date">MAY 18, 2026 · TRICHY</div>
+  <div class="footer-social">
+    <a href="#">INSTAGRAM</a>
+    <span style="color:rgba(201,148,42,0.3)">✦</span>
+    <a href="#">FACEBOOK</a>
+    <span style="color:rgba(201,148,42,0.3)">✦</span>
+    <a href="#">GALLERY</a>
+  </div>
+  <div class="gold-rule" style="margin:20px auto"></div>
+  <div class="footer-copy">Made with 💛 for our special day · #AnushaWedsHarish</div>
+</footer>
+
+<script>
+/* ════ SCROLL RESTORATION ════ */
+if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+window.scrollTo(0,0);
+
+/* ════ CURTAIN OPEN (faster) ════ */
+document.getElementById('curtain-wrap').addEventListener('click', openCurtains);
+let curtainOpened = false;
+
+function openCurtains() {
+  if (curtainOpened) return;
+  curtainOpened = true;
+  const cw = document.getElementById('curtain-wrap');
+  cw.classList.add('open');
+  
+  // Start music smoothly
+  const audio = document.getElementById('bg-music');
+  if (audio) { 
+      audio.play().then(() => {
+          musicPlaying = true;
+          updateMusicButton();
+      }).catch(e => console.log('Autoplay blocked:', e)); 
+  }
+  
+  setTimeout(() => { cw.classList.add('done'); startApp(); }, 50);
+}
+
+function startApp() {
+  drawStars('stars-canvas', true);
+  drawStars('countdown-stars', false);
+  startCountdown();
+  initObserver();
+  initScrollEffects();
+  loadWishes();
+  initScratchCard();
+  initGames();
+}
+
+let currentFlipIdx = 1;
+let isAnimating = false;
+function flipAndSlide() {
+  if (isAnimating) return;
+  
+  if (currentFlipIdx < 4) {
+    isAnimating = true;
+    const card = document.getElementById('card-' + currentFlipIdx);
+    
+    // 1. Flip
+    card.classList.add('is-flipped');
+    
+    // 2. Slide after 800ms
+    setTimeout(() => {
+      card.classList.add('slid-back');
+      currentFlipIdx++;
+      isAnimating = false;
+    }, 1000);
+  } else {
+    // Reset
+    isAnimating = true;
+    for (let i = 1; i <= 4; i++) {
+      const c = document.getElementById('card-' + i);
+      if(c) c.classList.remove('is-flipped', 'slid-back');
+    }
+    currentFlipIdx = 1;
+    setTimeout(() => { isAnimating = false; }, 800);
+  }
+}
+
+/* ════ SCRATCH CARD ════ */
+function initScratchCard() {
+  const canvas = document.getElementById('scratch-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const size = 300;
+  canvas.width = size;
+  canvas.height = size;
+
+  // Fill with solid gold color as fallback
+  ctx.fillStyle = '#D4AF37';
+  ctx.fillRect(0, 0, size, size);
+
+  const img = new Image();
+  img.onload = () => {
+    ctx.drawImage(img, 0, 0, size, size);
+  };
+  img.src = 'scratch-cover.png';
+
+  let isDrawing = false;
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return { x: clientX - rect.left, y: clientY - rect.top };
+  }
+  
+  function scratch(e) {
+    if (!isDrawing) return;
+    if(e.cancelable) e.preventDefault();
+    
+    const hint = document.getElementById('scratch-hint');
+    if(hint) hint.style.opacity = '0';
+
+    const pos = getPos(e);
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, 30, 0, Math.PI * 2);
+    ctx.fill();
+
+    checkScratch();
+  }
+
+  function checkScratch() {
+    try {
+      const pixels = ctx.getImageData(0, 0, size, size).data;
+      let clearCount = 0;
+      for (let i = 3; i < pixels.length; i += 4) {
+        if (pixels[i] === 0) clearCount++;
+      }
+      const percent = (clearCount / (size * size)) * 100;
+      if (percent > 10) {
+        document.getElementById('scratch-reveal-text').classList.add('scratch-visible');
+      }
+    } catch (e) {
+      // Fallback for local file CORS security
+      document.getElementById('scratch-reveal-text').classList.add('scratch-visible');
+    }
+  }
+
+  canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+  canvas.addEventListener('mousemove', scratch);
+  window.addEventListener('mouseup', () => isDrawing = false);
+  canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
+  canvas.addEventListener('touchmove', scratch, {passive: false});
+  window.addEventListener('touchend', () => isDrawing = false);
+}
+
+/* ════ GAMES ════ */
+function initGames() {
+  initMemoryGame();
+  initTriviaGame();
+}
+
+// Memory Game
+function initMemoryGame() {
+  const container = document.getElementById('memory-game');
+  const winEl = document.getElementById('win-memory');
+  const scoreDisplay = document.getElementById('memory-score-display');
+  const finalScoreEl = document.getElementById('memory-final-score');
+  
+  winEl.style.display = 'none';
+  let moves = 0;
+  scoreDisplay.innerText = 'Moves: 0';
+  
+  // 8 cards (4 pairs) + 1 Special Card in center
+  const symbols = ['💍', '💍', '🌸', '🌸', '❤️', '❤️', '🎻', '🎻'];
+  const shuffled = symbols.sort(() => Math.random() - 0.5);
+  // Insert special card at index 4 (middle of 3x3)
+  shuffled.splice(4, 0, '💝');
+  
+  let flipped = [];
+  let matched = 0;
+
+  container.innerHTML = '';
+  shuffled.forEach((symbol, idx) => {
+    const card = document.createElement('div');
+    card.className = 'memory-card';
+    card.style = 'height: 100px; background: var(--dark-red); border: 2px solid var(--gold); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 36px; cursor: pointer; transition: transform 0.6s; transform-style: preserve-3d;';
+    card.dataset.symbol = symbol;
+    
+    if (idx === 4) {
+      // Special card
+      card.innerHTML = '<span>💝</span>';
+      card.style.background = 'var(--gold)';
+      card.style.color = 'var(--deep-red)';
+      card.classList.add('flipped');
+      card.onclick = () => alert("Our love is the center of this game! Match the others! 💖");
+    } else {
+      const inner = document.createElement('span');
+      inner.innerText = symbol;
+      card.appendChild(inner);
+      
+      card.onclick = () => {
+        if (flipped.length < 2 && !card.classList.contains('flipped')) {
+          card.classList.add('flipped');
+          flipped.push(card);
+
+          if (flipped.length === 2) {
+            moves++;
+            scoreDisplay.innerText = 'Moves: ' + moves;
+            if (flipped[0].dataset.symbol === flipped[1].dataset.symbol) {
+              matched++;
+              flipped = [];
+              if (matched === 4) {
+                setTimeout(() => { 
+                  finalScoreEl.innerText = 'Total Moves: ' + moves;
+                  winEl.style.display = 'flex'; 
+                }, 600);
+              }
+            } else {
+              setTimeout(() => {
+                flipped.forEach(c => c.classList.remove('flipped'));
+                flipped = [];
+              }, 800);
+            }
+          }
+        }
+      };
+    }
+    container.appendChild(card);
+  });
+}
+
+// Trivia Game
+const triviaData = [
+  { q: "Where is the wedding venue?", a: ["Srirangam", "Somarasampettai", "Madurai"], c: 1 },
+  { q: "What is Anusha's profession?", a: ["Software Engineer", "Talent Acquisition", "Teacher"], c: 1 },
+  { q: "What is the date of the Marriage?", a: ["May 17", "May 18", "May 19"], c: 1 }
+];
+let currentTrivia = 0;
+
+function initTriviaGame() {
+  const qEl = document.getElementById('trivia-question');
+  const optEl = document.getElementById('trivia-options');
+  const winEl = document.getElementById('win-trivia');
+  if(!qEl || !optEl) return;
+  
+  const data = triviaData[currentTrivia];
+  qEl.innerText = (currentTrivia + 1) + ". " + data.q;
+  optEl.innerHTML = '';
+  
+  data.a.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.innerText = opt;
+    btn.style = 'padding: 12px 20px; background: rgba(255,255,255,0.05); border: 1px solid var(--gold-pale); color: white; border-radius: 8px; cursor: pointer; text-align: left; font-family: Lora, serif; transition: all 0.3s;';
+    btn.onmouseover = () => btn.style.background = 'rgba(201,148,42,0.1)';
+    btn.onmouseout = () => btn.style.background = 'rgba(255,255,255,0.05)';
+    
+    btn.onclick = () => {
+      if (i === data.c) {
+        btn.style.background = 'rgba(46, 204, 113, 0.4)';
+        btn.style.borderColor = '#2ecc71';
+        setTimeout(() => {
+          if (currentTrivia < triviaData.length - 1) {
+            currentTrivia++;
+            initTriviaGame();
+          } else {
+            winEl.style.display = 'flex';
+          }
+        }, 800);
+      } else {
+        btn.style.background = 'rgba(231, 76, 60, 0.4)';
+        btn.style.borderColor = '#e74c3c';
+        btn.style.animation = 'shake 0.4s ease';
+        setTimeout(() => { btn.style.animation = ''; }, 400);
+      }
+    };
+    optEl.appendChild(btn);
+  });
+}
+
+// Game 3: Flower Shower
+let score3 = 0;
+let game3Interval;
+function startGame3() {
+  const container = document.getElementById('game-canvas-container');
+  const hint = document.getElementById('game-hint');
+  const scoreEl = document.getElementById('game-score');
+  const winEl = document.getElementById('win-shower');
+  
+  if (hint) hint.style.display = 'none';
+  score3 = 0;
+  scoreEl.innerText = 'Score: 0';
+  winEl.style.display = 'none';
+
+  if (game3Interval) clearInterval(game3Interval);
+  game3Interval = setInterval(() => {
+    const flower = document.createElement('div');
+    flower.innerText = ['🌸', '🌺', '❤️', '🌼'][Math.floor(Math.random() * 4)];
+    flower.style = `position: absolute; top: -50px; left: ${Math.random() * 90}%; font-size: 32px; cursor: pointer; user-select: none; transition: top 4s linear; z-index: 5;`;
+    container.appendChild(flower);
+
+    setTimeout(() => { flower.style.top = '400px'; }, 50);
+    
+    flower.onclick = (e) => {
+      e.stopPropagation();
+      score3++;
+      scoreEl.innerText = 'Score: ' + score3;
+      flower.remove();
+      if (score3 >= 10) {
+        clearInterval(game3Interval);
+        winEl.style.display = 'flex';
+      }
+    };
+    
+    setTimeout(() => { if (flower.parentElement) flower.remove(); }, 4000);
+  }, 700);
+}
+
+/* ════ STARS ════ */
+function drawStars(id, animated) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const parent = canvas.parentElement;
+  canvas.width = parent.offsetWidth || window.innerWidth;
+  canvas.height = parent.offsetHeight || 500;
+  const ctx = canvas.getContext('2d');
+  const stars = [];
+  const count = animated ? 500 : 250;
+  for (let i = 0; i < count; i++) {
+    stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height * 0.9, r: Math.random() * 2 + 0.3, a: Math.random(), speed: Math.random() * 0.006 + 0.001, phase: Math.random() * Math.PI * 2 });
+  }
+  function render(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      const opacity = animated ? (0.4 + 0.6 * Math.abs(Math.sin(t * s.speed + s.phase))) : s.a;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,240,200,${opacity})`; ctx.fill();
+    });
+    if (animated) requestAnimationFrame(render);
+  }
+  if (animated) requestAnimationFrame(render);
+  else render(0);
+}
+
+/* ════ COUNTDOWN ════ */
+function startCountdown() {
+  const target = new Date('2026-05-18T09:30:00');
+  function tick() {
+    const now = new Date(); const diff = target - now;
+    if (diff <= 0) { ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent='00'); return; }
+    const d = Math.floor(diff/86400000), h = Math.floor((diff%86400000)/3600000), m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+    setTimeout(tick, 1000);
+  }
+  tick();
+}
+
+/* ════ SCROLL PROGRESS ════ */
+function initScrollEffects() {
+  const bar = document.getElementById('progress-bar');
+  const heroContent = document.getElementById('hero-content');
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY; const max = document.body.scrollHeight - window.innerHeight;
+    bar.style.width = (sy / max * 100) + '%';
+    const p = Math.min(sy / (window.innerHeight * 0.7), 1);
+    heroContent.style.transform = `translateY(${p * -60}px)`;
+    heroContent.style.opacity = 1 - p * 1.2;
+  });
+}
+
+/* ════ INTERSECTION OBSERVER ════ */
+function initObserver() {
+  const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(el => obs.observe(el));
+}
+
+/* ════ MUSIC TOGGLE ════ */
+let musicPlaying = false;
+function updateMusicButton() {
+  const icon = document.getElementById('music-icon');
+  const btn = document.getElementById('music-btn');
+  if(musicPlaying) {
+      icon.innerHTML = '🎵';
+      icon.style.animationPlayState = 'running';
+      btn.title = 'Mute Music';
+  } else {
+      icon.innerHTML = '🔇';
+      icon.style.animationPlayState = 'paused';
+      btn.title = 'Play Music';
+  }
+}
+
+function toggleMusic() {
+  musicPlaying = !musicPlaying;
+  const audio = document.getElementById('bg-music');
+  if(audio) {
+    if (musicPlaying) audio.play();
+    else audio.pause();
+  }
+  updateMusicButton();
+}
+
+/* ════ WISH / BLESSINGS WALL ════ */
+const STORAGE_KEY = 'arjun_kavya_wishes_v1';
+
+function loadWishes() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  const wishes = stored ? JSON.parse(stored) : getDefaultWishes();
+  renderWishes(wishes);
+}
+
+function getDefaultWishes() {
+  return [
+    { name: "Meenakshi Ammal", msg: "வாழ்க வளமுடன்! May your home always be filled with love, laughter, and the fragrance of jasmine. 🌸", time: "Family Blessing" },
+    { name: "Priya & Rajan", msg: "Wishing you both a lifetime of happiness together. So blessed to witness this beautiful union! 🙏", time: "Close Friends" }
+  ];
+}
+
+function renderWishes(wishes) {
+  const list = document.getElementById('wish-list');
+  list.innerHTML = '';
+  wishes.forEach((w, i) => {
+    const card = document.createElement('div');
+    card.className = 'wish-card';
+    card.style.animationDelay = (i * 0.1) + 's';
+    card.innerHTML = `
+      <div class="wish-card-name">🌺 ${w.name}</div>
+      <div class="wish-card-msg">${w.msg}</div>
+      <div class="wish-card-time">${w.time}</div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function submitWish() {
+  const nameEl = document.getElementById('wish-name');
+  const msgEl = document.getElementById('wish-msg');
+  const name = nameEl.value.trim();
+  const msg = msgEl.value.trim();
+
+  if (!name || !msg) {
+    alert('Please enter both your name and a blessing! 🌺');
+    return;
+  }
+
+  // 1. Save to Local Wall
+  const stored = localStorage.getItem(STORAGE_KEY);
+  const wishes = stored ? JSON.parse(stored) : getDefaultWishes();
+  const now = new Date();
+  const timeStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  
+  wishes.unshift({ name, msg, time: timeStr });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(wishes));
+  renderWishes(wishes);
+
+  // 2. Send to WhatsApp
+  const whatsappNumber = "918056823309";
+  const whatsappText = encodeURIComponent(`🌺 Wedding Blessing 🌺\n\nFrom: ${name}\nBlessing: ${msg}`);
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
+  
+  // 3. Show success and open WhatsApp
+  document.getElementById('wish-success').style.display = 'block';
+  nameEl.value = '';
+  msgEl.value = '';
+  
+  setTimeout(() => { 
+    document.getElementById('wish-success').style.display = 'none'; 
+    window.open(whatsappUrl, '_blank');
+  }, 1000);
+
+  // Scroll to wish wall
+  document.getElementById('wish-list').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+</body>
+</html>
